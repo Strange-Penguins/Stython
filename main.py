@@ -42,7 +42,7 @@ async def load(ctx, extension):
 # unload a module
 @client.command()
 async def unload(ctx, extension):
-    """unloads a module"""
+    """Unloads a module"""
     await ctx.send(f':green_circle: {extension} unloaded!')
 
 
