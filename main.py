@@ -4,9 +4,12 @@ from discord.ext import commands
 from discord import Intents
 
 
+prefix = os.environ.get("DISCORD_PREFIX")
+
+
 # Returns a prefix. Warning: Two Arguments required
 def get_prefix(client, message):
-    return "py!"
+    return prefix
 
 
 # A Function to load all Modules
