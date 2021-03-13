@@ -29,7 +29,7 @@ load_modules()
 @client.command()
 async def ping(ctx):
     """Shows the actual Ping"""
-    await ctx.send(f'Pong!')
+    await ctx.send(f'🏓 Pong 🏓 (took: {round(client.latency,1)} ms)')
 
 
 # Load a module
