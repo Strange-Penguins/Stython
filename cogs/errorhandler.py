@@ -16,9 +16,8 @@ class ErrorHandler(commands.Cog):
 
         # This prevents any cogs with an overwritten cog_command_error being handled here.
         cog = ctx.cog
-        if cog:
-            if cog._get_overridden_method(cog.cog_command_error) is not None:
-                return
+        if cog and cog._get_overridden_method(cog.cog_command_error) is not None:
+            return
 
         ignored = (commands.CommandNotFound,)
 
