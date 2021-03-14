@@ -5,8 +5,7 @@ class Village:
 
     def __init__(self, game_data, pos=(0, 0)):
         self.position = pos
-        self.buildings = [0] * len(game_data.buildings_list)
-        # TODO default building levels
+        self.buildings = [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0]
         self.last_update = time.monotonic_ns() / 1_000_000
         self.resources = [0, 0, 0, 0]
         self.last_resource = [0, 0, 0, 0]
