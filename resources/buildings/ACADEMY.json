@@ -1,1 +1,1 @@
-{"requirements": {"HEADQUARTER": 20, "SMITHY": 20, "MARKET": 10}, "levels": []}
+{"requirements": {"HEADQUARTER": 20, "SMITHY": 20, "MARKET": 10}, "levels": [[[15000, 25000, 10000, 80], 0.63], [[30000, 50000, 20000, 14], 0.59], [[60000, 100000, 40000, 16], 0.56]]}
