@@ -80,7 +80,6 @@ for i, name in enumerate(buildings):
     f = open(f"{name}.json", "w")
     data["requirements"].clear()
     data["requirements"].update(requirements[i])
-    data["levels"].clear()
-    data["levels"].append(levels[i])
+    data["levels"] = levels[i]
     f.write(json.dumps(data))
     f.close()
