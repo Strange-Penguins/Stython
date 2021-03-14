@@ -12,7 +12,7 @@ class Village:
         self.position = pos
         self.buildings = [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0]
         self.last_update = time.monotonic_ns() / 1_000_000
-        self.resources = [0, 0, 0]
+        self.resources = [400, 400, 400, 0]
         self.last_resource = [0, 0, 0]
         self.population = 0
         self.max_population = 0
@@ -40,6 +40,7 @@ class Village:
                 continue
             self.current_population += _get_building_level_data(game_data, index, building_level)[0][4]
         # TODO troops and queued buildings
+        self.resources[3] = self.max_population - self.current_population
 
     def _update_resource(self, game_data, time_diff, building_index, resource_index):
         needed_time = self._get_time_for_resource(game_data, building_index)
