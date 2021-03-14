@@ -1,5 +1,5 @@
 import discord
-import json
+from game import gamedata as gd
 from discord.ext import commands
 
 
@@ -7,15 +7,10 @@ class Game(commands.Cog):
 
     def __init__(self, client):
         self.client = client
+        self.game = gd.GameData()
         # A map structure that has the current available windows
         # self.points_mapping = json.load()
-        self.buildings = []
-        self.buildings_list = ["HEADQUARTER", "BARRACKS", "STABLE", "WORKSHOP", "ACADEMY", "SMITHY", "RALLY_POINT",
-                               "STATUE", "MARKET", "TIMBER_CAMP", "CLAY_PIT", "IRON_MINE", "FARM", "WAREHOUSE",
-                               "HIDING_PLACE", "WALL"]
-        for element in self.buildings_list:
-            with open(f"resources/buildings/{element}.json") as f:
-                self.buildings.append(json.load(f))
+
         # message id -> playerid -> window
         self.open_windows = {}
 
@@ -30,7 +25,11 @@ class Game(commands.Cog):
         """Shows an overview of your current village"""
         # TODO: Points calculation
 
-        points = 26
+        points = 260
+
+        # TODO: Capacity calculation
+        capacity = 1000
+        farm_limit = 2000
 
         points_path = {10999: "https://cdn.discordapp.com/attachments/820622377208643586/820622658370142278/W6.png",
                        8999: "https://cdn.discordapp.com/attachments/820622377208643586/820622636794118164/W5.png",
@@ -50,8 +49,8 @@ class Game(commands.Cog):
             overview_embed.set_thumbnail(
                 url="https://cdn.discordapp.com/attachments/820622377208643586/820622462005149696/W1.png")
         overview_embed.add_field(name="Resources",
-                                 value=f":wood: {0}/{0} :bricks: {0}/{0} :nut_and_bolt: {0}/{0} "
-                                       f":bust_in_silhouette: {0}/{0}"
+                                 value=f":wood: {0}/{capacity} :bricks: {0}/{capacity} :nut_and_bolt: {0}/{capacity} "
+                                       f":bust_in_silhouette: {0}/{farm_limit}"
                                  )
 
         overview_embed.add_field(name="Punkte", value=f'{points}')
