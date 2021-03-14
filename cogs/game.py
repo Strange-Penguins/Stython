@@ -1,4 +1,5 @@
 import discord
+import json
 from discord.ext import commands
 
 
@@ -7,6 +8,14 @@ class Game(commands.Cog):
     def __init__(self, client):
         self.client = client
         # A map structure that has the current available windows
+        # self.points_mapping = json.load()
+        self.buildings = []
+        self.buildings_list = ["HEADQUARTER", "BARRACKS", "STABLE", "WORKSHOP", "ACADEMY", "SMITHY", "RALLY_POINT",
+                               "STATUE", "MARKET", "TIMBER_CAMP", "CLAY_PIT", "IRON_MINE", "FARM", "WAREHOUSE",
+                               "HIDING_PLACE", "WALL"]
+        for element in self.buildings_list:
+            with open(f"resources/buildings/{element}.json") as f:
+                self.buildings.append(json.load(f))
         # message id -> playerid -> window
         self.open_windows = {}
 
@@ -20,6 +29,7 @@ class Game(commands.Cog):
     async def overview(self, ctx):
         """Shows an overview of your current village"""
         # TODO: Points calculation
+
         points = 26
 
         points_path = {10999: "https://cdn.discordapp.com/attachments/820622377208643586/820622658370142278/W6.png",
@@ -34,8 +44,7 @@ class Game(commands.Cog):
 
         for k, v in points_path.items():
             if points > k:
-                overview_embed.set_thumbnail(
-                    url=v)
+                overview_embed.set_thumbnail(url=v)
                 break
         else:
             overview_embed.set_thumbnail(
@@ -50,8 +59,8 @@ class Game(commands.Cog):
         overview_embed.add_field(name="Buildings",
                                  value=f":office: {0} :crossed_swords: {0} :horse: {0} :hammer_pick: {0} "
                                        f":european_castle: {0} :hammer: {0} :bow_and_arrow: {0} :statue_of_liberty:"
-                                       f"{0}\n:department_store: {0} :wood: {0} :bricks: {0} :nut_and_bolt:  {0} "
-                                       f":farmer: {0} :classical_building:  {0} :key: {0} :shield: {0}",
+                                       f"{0}\n:department_store: {0} :wood: {0} :bricks: {0} :nut_and_bolt: {0} "
+                                       f":farmer: {0} :classical_building: {0} :key: {0} :shield: {0}",
                                  inline=False
                                  )
 
