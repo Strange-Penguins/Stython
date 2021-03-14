@@ -2,6 +2,7 @@ from discord.ext.commands import Bot
 import discord
 from datetime import datetime
 import platform
+import databasemanager as dbm
 
 
 class CustomClient(Bot):
@@ -10,6 +11,7 @@ class CustomClient(Bot):
         self.creation_date = datetime.now()
         super().__init__(**options)
         self.loop.create_task(self.greet())
+        self.db = dbm.DatabaseManager()
 
     async def greet(self):
         """Prints Info one time on startup"""
