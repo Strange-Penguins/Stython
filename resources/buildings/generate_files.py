@@ -459,7 +459,7 @@ def json_parser_for_points():
   ["30,330,,,,,,,,,,,,198,198,198,165,198,,","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""  ]
 ]"""
     json_object = json.loads(s)
-    matrix = [[0 for x in range(16)] for y in range(30)]
+    matrix = [[0 for x in range(30)] for y in range(16)]
     y = 0
     x = 0
     for index_y, element_y in enumerate(json_object):
@@ -472,10 +472,10 @@ def json_parser_for_points():
             print(element_x)
             print(f"y: {y} | x: {x}")
             matrix[y][x] = 0 if element_x == '' else int(element_x)
-            x += 1
+            y += 1
 
-        y += 1
-        x = 0
+        x += 1
+        y = 0
 
     f = open(f"POINTS.json", "w")
     f.write(json.dumps(matrix))
