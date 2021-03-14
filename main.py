@@ -9,7 +9,7 @@ prefix = os.environ.get("DISCORD_PREFIX")
 
 # Returns a prefix. Warning: Two Arguments required
 def get_prefix(client, message):
-    return prefix
+    return commands.when_mentioned_or(prefix)(client, message)
 
 
 # A Function to load all Modules
