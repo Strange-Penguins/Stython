@@ -1,0 +1,234 @@
+{
+  "Spear fighter": {
+    "production_speed": 988,
+    "movement_speed": 1080,
+    "offensive_strength": 10,
+    "general_defense": 15,
+    "cavalry_defense": 40,
+    "archer_defense": 20,
+    "production_costs": [
+      50,
+      30,
+      10,
+      1
+    ],
+    "requirements": {
+      "BARRACKS": 1
+    },
+    "research_costs": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "Swordsman": {
+    "production_speed": 1450,
+    "movement_speed": 1320,
+    "offensive_strength": 25,
+    "general_defense": 50,
+    "cavalry_defense": 25,
+    "archer_defense": 40,
+    "production_costs": [
+      30,
+      30,
+      70,
+      1
+    ],
+    "requirements": {
+      "SMITHY": 1
+    },
+    "research_costs": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "Axeman": {
+    "production_speed": 1281,
+    "movement_speed": 1080,
+    "offensive_strength": 40,
+    "general_defense": 10,
+    "cavalry_defense": 5,
+    "archer_defense": 10,
+    "production_costs": [
+      60,
+      30,
+      40,
+      1
+    ],
+    "requirements": {
+      "SMITHY": 2
+    },
+    "research_costs": [
+      700,
+      840,
+      820,
+      7200
+    ]
+  },
+  "Scout": {
+    "production_speed": 890,
+    "movement_speed": 540,
+    "offensive_strength": 0,
+    "general_defense": 2,
+    "cavalry_defense": 1,
+    "archer_defense": 2,
+    "production_costs": [
+      50,
+      50,
+      20,
+      2
+    ],
+    "requirements": {
+      "STABLE": 1
+    },
+    "research_costs": [
+      560,
+      480,
+      480,
+      5600
+    ]
+  },
+  "Light cavalry": {
+    "production_speed": 1780,
+    "movement_speed": 600,
+    "offensive_strength": 130,
+    "general_defense": 30,
+    "cavalry_defense": 40,
+    "archer_defense": 30,
+    "production_costs": [
+      125,
+      100,
+      250,
+      4
+    ],
+    "requirements": {
+      "STABLE": 3
+    },
+    "research_costs": [
+      2200,
+      2400,
+      2000,
+      7200
+    ]
+  },
+  "Heavy cavalry": {
+    "production_speed": 3546,
+    "movement_speed": 660,
+    "offensive_strength": 150,
+    "general_defense": 200,
+    "cavalry_defense": 80,
+    "archer_defense": 180,
+    "production_costs": [
+      200,
+      150,
+      600,
+      6
+    ],
+    "requirements": {
+      "STABLE": 10,
+      "SMITHY": 15
+    },
+    "research_costs": [
+      3000,
+      2400,
+      2000,
+      9500
+    ]
+  },
+  "Ram": {
+    "production_speed": 4765,
+    "movement_speed": 1800,
+    "offensive_strength": 2,
+    "general_defense": 20,
+    "cavalry_defense": 50,
+    "archer_defense": 20,
+    "production_costs": [
+      300,
+      200,
+      200,
+      5
+    ],
+    "requirements": {
+      "WORKSHOP": 1
+    },
+    "research_costs": [
+      1200,
+      1600,
+      800,
+      9700
+    ]
+  },
+  "Catapult": {
+    "production_speed": 7068,
+    "movement_speed": 1800,
+    "offensive_strength": 100,
+    "general_defense": 100,
+    "cavalry_defense": 50,
+    "archer_defense": 100,
+    "production_costs": [
+      320,
+      400,
+      100,
+      8
+    ],
+    "requirements": {
+      "WORKSHOP": 2,
+      "SMITHY": 12
+    },
+    "research_costs": [
+      1600,
+      2000,
+      1200,
+      9700
+    ]
+  },
+  "Paladin": {
+    "production_speed": 7200,
+    "movement_speed": 600,
+    "offensive_strength": 150,
+    "general_defense": 250,
+    "cavalry_defense": 400,
+    "archer_defense": 150,
+    "production_costs": [
+      20,
+      20,
+      40,
+      10
+    ],
+    "requirements": {
+      "STATUE": 1
+    },
+    "research_costs": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+    "Nobleman": {
+    "production_speed": 7200,
+    "movement_speed": 2100,
+    "offensive_strength": 30,
+    "general_defense": 100,
+    "cavalry_defense": 50,
+    "archer_defense": 100,
+    "production_costs": [
+      40000,
+      50000,
+      50000,
+      100
+    ],
+    "requirements": {
+      "ACADEMY": 1
+    },
+    "research_costs": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}
