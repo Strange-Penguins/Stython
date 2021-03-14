@@ -3,7 +3,7 @@ import time
 
 def _get_building_level_data(game_data, building_index, level):
     if level > 0:
-        return game_data[building_index]["levels"][level - 1]
+        return game_data.buildings[building_index]["levels"][level - 1]
 
 
 class Village:
@@ -16,6 +16,8 @@ class Village:
         self.last_resource = [0, 0, 0]
         self.population = 0
         self.max_population = 0
+        # format for tasks in queue: [remaining_time, building]
+        self.building_queue = []
         self._calculate_population(game_data)
 
     def update(self, game_data):
@@ -23,6 +25,51 @@ class Village:
         time_diff = current_time - self.last_update
         self.last_update = current_time
         self._update_resources(game_data, time_diff)
+        self._update_building_queue(game_data, time_diff)
+
+    def start_upgrade(self, game_data, building_index):
+        if len(self.building_queue) >= game_data.max_building_queue_length:
+            # TODO error cannot build/upgrade: queue is full
+            return
+        level = self.buildings[building_index]
+        if level == 0:
+            requirements = game_data.buildings[building_index]["requirements"]
+            for name, level in requirements:
+                req_index = game_data.buildings_map[name]
+                if self.buildings[req_index] < level:
+                    # TODO error cannot build: missing requirement
+                    return
+        for task in self.building_queue:
+            if task[1] == building_index:
+                # TODO error cannot upgrade/build: same building already in queue
+                return
+
+        if level >= len(game_data.buildings[building_index]["levels"]):
+            # TODO error cannot upgrade/build: max level
+            return
+
+        needed_resources = _get_building_level_data(game_data, building_index, level + 1)
+
+        for i, needed in enumerate(needed_resources):
+            if needed > self.resources[i]:
+                # TODO error cannot upgrade/build: missing resource
+                return
+        # TODO building time
+        building_time = 10000
+        self.building_queue.append([building_time, building_index])
+
+    def _update_building_queue(self, game_data, time_diff):
+        for task in self.building_queue:
+            task[0] -= time_diff
+            if task[0] <= 0:
+                building = task[1]
+                # building level up
+                self.buildings[building] += 1
+                self.building_queue.remove(task)
+                # calculate new population if the farm got leveled up
+                if building == 12:
+                    self._calculate_population(game_data)
+                # TODO resource
 
     def _update_resources(self, game_data, time_diff):
         # TIMBER_CAMP 9 CLAY_PIT 10 IRON_MINE 11
