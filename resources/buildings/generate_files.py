@@ -464,13 +464,10 @@ def json_parser_for_points():
     x = 0
     for index_y, element_y in enumerate(json_object):
         l = str(element_y[0][1:]).split("'")[0].split(",")
-        print(l)
         for index_x, element_x in enumerate(l):
             if index_x == 0 or 5 <= index_x <= 7:
                 continue
 
-            print(element_x)
-            print(f"y: {y} | x: {x}")
             matrix[y][x] = 0 if element_x == '' else int(element_x)
             y += 1
 
@@ -480,7 +477,6 @@ def json_parser_for_points():
     f = open(f"POINTS.json", "w")
     f.write(json.dumps(matrix))
     f.close()
-
 
 # create_files()
 # json_parser_for_buildings()
