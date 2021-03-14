@@ -18,7 +18,7 @@ class CustomClient(Bot):
         time_delta = now_date - self.creation_date
         print(
             f"----------\n[{now_date.strftime('%H:%M:%S')}] {self.user} started and connection established sucessfully."
-            f"(Took:{round(time_delta.microseconds / 1_000_000,1)}sec)\n"
+            f"(Took:{round(time_delta.microseconds / 1_000_000, 1)}sec)\n"
             f">> Guilds: {[guild.name for guild in self.guilds]}\n"
             f">> Running on {platform.system()} "
             f"- Discord.py: {discord.__version__} - Python: {platform.python_version()}"

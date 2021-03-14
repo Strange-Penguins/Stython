@@ -2,7 +2,7 @@ import os
 import customclient
 from discord.ext import commands
 from discord import Intents
-
+import discord
 
 prefix = os.environ.get("DISCORD_PREFIX")
 
@@ -21,7 +21,8 @@ def load_modules():
 
 
 # Creates a client
-client = customclient.CustomClient(command_prefix=get_prefix, intents=Intents.all(), case_insensitive=True)
+client = customclient.CustomClient(command_prefix=get_prefix, intents=Intents.all(), case_insensitive=True,
+                                   status=discord.Status.dnd, activity=discord.Game("Die Stämme"))
 load_modules()
 
 
@@ -29,11 +30,12 @@ load_modules()
 @client.command()
 async def ping(ctx):
     """Shows the actual Ping"""
-    await ctx.send(f'🏓 Pong 🏓 (took: {round(client.latency * 1000,1)} ms)')
+    await ctx.send(f'🏓 Pong 🏓 (took: {round(client.latency * 1000, 1)} ms)')
 
 
 # Load a module
 @client.command()
+@commands.is_owner()  # checks owner_ids too
 async def load(ctx, extension):
     """Loads a module"""
     await ctx.send(f':green_circle: {extension} loaded!')
@@ -41,6 +43,7 @@ async def load(ctx, extension):
 
 # unload a module
 @client.command()
+@commands.is_owner()
 async def unload(ctx, extension):
     """Unloads a module"""
     await ctx.send(f':green_circle: {extension} unloaded!')
@@ -48,6 +51,7 @@ async def unload(ctx, extension):
 
 # Reload a module
 @client.command()
+@commands.is_owner()
 async def reload(ctx, extension):
     """Reloads a module"""
     await ctx.send(f':green_circle: {extension} reloaded!')
@@ -55,6 +59,7 @@ async def reload(ctx, extension):
 
 # Load Modules
 @client.command()
+@commands.is_owner()
 @commands.is_owner()
 async def shutdown(ctx, reason="regular shutdown"):
     """Shuts the bot down"""
