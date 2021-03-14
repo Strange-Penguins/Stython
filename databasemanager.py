@@ -22,8 +22,8 @@ class DatabaseManager:
     def create_world(self, world):
         if world in self.worlds:
             return False
-        if not os.path.isfile(f"db/world{world}.db"):
-            return True
+        if os.path.isfile(f"db/world{world}.db"):
+            return False
         connection = sq3.connect(f"db/world{world}.db", check_same_thread=False)
         connection.row_factory = sq3.Row
         with open("db/schemas/create_world.sql") as f:
