@@ -3,7 +3,7 @@ from game import gamedata as gd
 from discord.ext import commands
 
 
-class Game(commands.Cog):
+class GameHandler(commands.Cog):
 
     def __init__(self, client):
         self.client = client
@@ -11,14 +11,25 @@ class Game(commands.Cog):
         # A map structure that has the current available windows
         # self.points_mapping = json.load()
 
-        # message id -> playerid -> window
-        self.open_windows = {}
+        # Playerid -> World -> Village
+        self.playerviews = {}
 
     # Switch the World the player is currently playing on
     @commands.command()
-    async def switchworld(self, ctx):
+    async def switchworld(self, ctx, world_id):
         """Switches the current active world of a player"""
-        await ctx.send("Not implemented")
+        # Check if player plays on the world
+        world = 0
+
+        # Gets his first Village
+        self.playerviews[ctx.author.id] = (world, )
+        await ctx.send(f"Switched your current world to world {world}")
+
+    @commands.command()
+    async def switchvillage(self, ctx, village_id):
+        world = self.playerviews[ctx.author.id][0]
+        self.playerviews[ctx.author.id] = (world, village_id)
+        await ctx.send(f"Switched your current world to world {village_id} on {world}")
 
     @commands.command()
     async def overview(self, ctx):
@@ -79,7 +90,12 @@ class Game(commands.Cog):
     @commands.command()
     async def map(self, ctx):
         """Shows the map"""
-        await ctx.send("Not implemented")
+        map_embed = discord.Embed(
+            color=ctx.author.color, timestamp=ctx.message.created_at,  title=f"Map centered at {ctx.author}"
+        )
+        # request villages
+
+        await ctx.send(embed=map_embed)
 
     @commands.command()
     async def attack(self, ctx):
@@ -90,4 +106,4 @@ class Game(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(Game(client))
+    client.add_cog(GameHandler(client))
