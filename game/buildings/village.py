@@ -57,5 +57,5 @@ class Village:
         # TODO add speed modifiers
         if level == 0:
             return 450_000
-        production = game_data.buildings[building_index]["levels"][level - 1][1]
+        production = _get_building_level_data(game_data, building_index, level)[1]
         return 3_600_000 / production
