@@ -40,37 +40,53 @@ class DatabaseManager:
         self.worlds[world].close()
         self.worlds.pop(world, None)
 
-    def create_village(self, world, player, village):
+    def create_village(self, world, player, coords):
         if world not in self.worlds:
-            return False
-        # TODO Insert
+            return False, "World not available"
+        with self.worlds[world] as villages:
+            # CHECK FOR EXISTING VILLAGES
+            if len(villages.execute("SELECT * FROM villages WHERE xCoord = ? AND yCoord = ?", coords).fetchall()) == 0:
+                return False, "A Village for you already exists."
+            # Fetch player village count
+            count = villages.execute("SELECT COUNT(*) FROM villages WHERE player = ?" (player,)).fetchall()[0]
+            values = [player, int(count), coords[0], coords[1], 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1] + 11 * [0]
+            villages.execute("INSERT INTO villages (player, village, xCord, yCord, HEADQUARTER, BARRACKS, STABLE,"
+                             " WORKSHOP, ACADEMY, SMITHY, RALLY_POINT, STATUE, MARKET, TIMBER_CAMP, CLAY_PIT,"
+                             " IRON_MINE, FARM, WAREHOUSE, HIDING_PLACE, WALL, Spear, Sword, Axe, Scout, Light, Heavy,"
+                             " Ram, Catapult, Paladin, Nobleman) "
+                             "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                             tuple(values)).fetchall()
+        return True, "Village successful created"
 
-    def get_village(self, world, player, village):
-        if world not in self.worlds:
+    # Gets a village or all Villages for a specific player.
+    def get_village(self, world, player, village=None):
+        if world not in self.worlds or not str(village).isnumeric():
             return False
-        with self.worlds[world] as village:
-            res = village.execute("SELECT * FROM villages WHERE player = ? AND village = ?",
-                                  (player, village)).fetchall()
+        with self.worlds[world] as villages:
+            query = f"SELECT * FROM villages WHERE player = ?{'' if village is not None else 'AND village = ?'}"
+            res = villages.execute(query, (player, int(village))).fetchall()
         # TODO: Convert if nessecary
         return res
 
-    def get_villages(self, world, player, village):
-        if world not in self.worlds:
-            return False
-        with self.worlds[world] as village:
-            res = village.execute("SELECT * FROM villages WHERE player = ?", (player,)).fetchall()
-        # TODO: Convert if nessecary
-        return res
+    def get_villages(self, world, player):
+        return self.get_village(world, player)
 
-    def update_village(self, world):
+    def update_village(self, world, player, village):
         if world not in self.worlds:
             return False
-        # TODO UPDATE
+        with self.worlds[world] as villages:
+            query = ""
+            # TODO UPDATE
 
-    def delete_village(self, world):
+    def delete_village(self, world, player, village):
         if world not in self.worlds:
             return False
-        pass
-        # TODO DELETE
+        with self.worlds[world] as villages:
+            if len(villages.execute("SELECT * FROM villages WHERE player = ? AND village = ?", (player, village)).fetchall()) != 1:
+                return False, "No village found"
+            count = villages.execute("SELECT COUNT(*) FROM villages WHERE player = 'computer'").fetchall()[0]
+            # DELETE SHOULD CONVERT A VILLAGE TO A BARBARIAN VILLAGE
+            # villages.execute("REPLACE INTO villages(player, village) WITH player VALUES(?,?,?,?)")
+            # TODO DELETE
 
     # TODO: REPETE FOR MOVEMENTS AND BUILDINGQUEUE

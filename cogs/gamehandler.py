@@ -14,6 +14,14 @@ class GameHandler(commands.Cog):
         # Playerid -> World -> Village
         self.playerviews = {}
 
+    @commands.command()
+    async def join(self, ctx, world_id):
+        db_response = self.client.db.create_village()
+        # TODO: Create in Cache
+        if not db_response[0]:
+            await ctx.send(db_response[1])
+        await ctx.send(db_response[1])
+
     # Switch the World the player is currently playing on
     @commands.command()
     async def switchworld(self, ctx, world_id):

@@ -2,7 +2,6 @@
 
 CREATE TABLE villages
 (
-
     player       INTEGER NOT NULL,
     village      INTEGER NOT NULL,
     xCord        INTEGER NOT NULL,
