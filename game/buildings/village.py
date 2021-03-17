@@ -58,18 +58,22 @@ class Village:
         building_time = 10000
         self.building_queue.append([building_time, building_index])
 
-    def _update_building_queue(self, game_data, time_diff):
-        for task in self.building_queue:
-            task[0] -= time_diff
-            if task[0] <= 0:
-                building = task[1]
-                # building level up
-                self.buildings[building] += 1
-                self.building_queue.remove(task)
-                # calculate new population if the farm got leveled up
-                if building == 12:
-                    self._calculate_population(game_data)
-                # TODO resource
+    def _update_building_queue(self, game_data, time_diff, offset=0):
+        if not self.building_queue:
+            return
+        self.building_queue[0][0] -= (time_diff - offset)
+        if self.building_queue[0][0] > 0:
+            return
+        task = self.building_queue.pop()
+        building = task[1]
+        # building level up
+        self.buildings[building] += 1
+        # calculate new population if the farm got leveled up
+        if building == 12:
+            self._calculate_population(game_data)
+        # TODO resource
+
+        self._update_building_queue(game_data, time_diff, offset - task[0])
 
     def _update_resources(self, game_data, time_diff):
         # TIMBER_CAMP 9 CLAY_PIT 10 IRON_MINE 11
